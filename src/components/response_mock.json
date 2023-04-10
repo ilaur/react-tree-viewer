@@ -1,0 +1,34 @@
+{
+  "response": [
+    {
+      "children": [
+        {
+          "children": [
+            { "children": null, "json": {}, "name": "child11" },
+            { "children": null, "json": {}, "name": "child12" }
+          ],
+          "json": {},
+          "name": "child1"
+        }
+      ],
+      "json": {},
+      "name": "node1"
+    },
+    {
+      "children": [
+        {
+          "children": [{ "children": null, "json": {}, "name": "child21" }],
+          "json": {},
+          "name": "child2"
+        }
+      ],
+      "json": {},
+      "name": "node2"
+    },
+    {
+      "children": null,
+      "json": {},
+      "name": "node3"
+    }
+  ]
+}
