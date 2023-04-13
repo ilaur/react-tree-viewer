@@ -1,12 +1,17 @@
 import React from 'react';
-import ParameterTree from './components/ParameterTree';
+
+import ParametersTree from './components/ParametersTree';
+
+import { AppContextProvider } from './AppContext';
 
 import './App.css';
 
 export default function App() {
   return (
     <div className="App">
-      <ParameterTree />
+      <AppContextProvider>
+        <ParametersTree />
+      </AppContextProvider>
     </div>
   );
 }

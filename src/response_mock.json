@@ -1,0 +1,38 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          { "children": null, "json": { "param1": 0, "param2": 10 }, "name": "child11" },
+          { "children": null, "json": { "param3": true }, "name": "child12" }
+        ],
+        "json": {},
+        "name": "child1"
+      }
+    ],
+    "json": {},
+    "name": "node1"
+  },
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": null,
+            "json": { "param4": "enabled", "param5": "mode1" },
+            "name": "child21"
+          }
+        ],
+        "json": {},
+        "name": "child2"
+      }
+    ],
+    "json": {},
+    "name": "node2"
+  },
+  {
+    "children": null,
+    "json": {},
+    "name": "node3"
+  }
+]
