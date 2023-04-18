@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Stack, Typography, TextField, Box, Grid } from '@mui/material';
+import { Stack, TextField, Box } from '@mui/material';
 
 import { ParameterNode } from '../requests/types';
 
@@ -39,15 +39,17 @@ export default function ParametersBranchEditor(): React.ReactElement {
   }, [selectedNodeId, parameters]);
 
   const renderFields = (fieldName: string, fieldValue: any): React.ReactElement => {
+    if (fieldValue === undefined) {
+      return <div />;
+    }
+
     return (
-      <Grid container direction="row" spacing={2}>
-        <Grid item>
-          <Typography>{fieldName}</Typography>
-        </Grid>
-        <Grid item>
-          <TextField id="standard-basic" value={fieldValue[fieldName]} variant="standard" />
-        </Grid>
-      </Grid>
+      <TextField
+        id="standard-basic"
+        label={fieldName}
+        value={fieldValue[fieldName] || null}
+        variant="standard"
+      />
     );
   };
 
@@ -56,14 +58,8 @@ export default function ParametersBranchEditor(): React.ReactElement {
   return (
     <Box sx={{ maxWidth: '300px' }}>
       <Stack>
-        <Grid container direction="row" spacing={2}>
-          <Grid item>
-            <Typography>Name</Typography>
-          </Grid>
-          <Grid item>
-            <TextField id="standard-basic" value={currentFields?.name} variant="standard" />
-          </Grid>
-        </Grid>
+        {renderFields('name', currentFields)}
+
         {Object.keys(values).map((key) => {
           return renderFields(key, values);
         })}

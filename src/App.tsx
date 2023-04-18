@@ -14,11 +14,11 @@ export default function App(): React.ReactElement {
     <div className="App">
       <AppContextProvider>
         <AppBar title={'HMI Parameter Service'} />
-        <Grid container direction="row" spacing={2}>
-          <Grid item xs={2}>
+        <Grid container direction="row" spacing={24} alignContent="center">
+          <Grid item>
             <ParametersTree />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item>
             <ParametersBranchEditor />
           </Grid>
         </Grid>

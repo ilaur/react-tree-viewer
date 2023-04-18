@@ -24,7 +24,7 @@ export default function ParametersTree(): React.ReactElement {
         .catch((err) => {
           console.error(err);
         });
-    }, 1000);
+    }, 0);
   }, [dispatch]);
 
   const renderChildNode = (
