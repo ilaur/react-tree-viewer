@@ -4,10 +4,10 @@ import { ParameterNode, AccountInfo } from './requests/types';
 type AppState = {
   accountInfo: AccountInfo | undefined;
   parameters: ParameterNode | null;
-  selectedNode: string | undefined;
+  selectedNodeId: string | undefined;
 };
 
-type Action =
+export type Action =
   | {
       type: 'logout';
     }
@@ -23,8 +23,8 @@ type Action =
       parameters: ParameterNode | null;
     }
   | {
-      type: 'selectedNode';
-      selectedNode: string | undefined;
+      type: 'selectedNodeId';
+      selectedNodeId: string | undefined;
     };
 
 type AppContextType = AppState & {
@@ -38,7 +38,7 @@ type Props = {
 const initialAppState = {
   accountInfo: undefined,
   parameters: null,
-  selectedNode: undefined,
+  selectedNodeId: undefined,
 };
 
 const AppContext = createContext<AppContextType>({
@@ -56,15 +56,15 @@ function reducer(appState: AppState, action: Action): AppState {
       return { ...appState, parameters: null };
     case 'addParameters':
       return { ...appState, parameters: action.parameters };
-    case 'selectedNode':
-      return { ...appState, selectedNode: action.selectedNode };
+    case 'selectedNodeId':
+      return { ...appState, selectedNodeId: action.selectedNodeId };
     default:
       return appState;
   }
 }
 
 export function AppContextProvider({ children }: Props) {
-  const [{ accountInfo, parameters, selectedNode }, dispatch] = useReducer(
+  const [{ accountInfo, parameters, selectedNodeId }, dispatch] = useReducer(
     reducer,
     initialAppState,
   );
@@ -74,7 +74,7 @@ export function AppContextProvider({ children }: Props) {
       value={{
         accountInfo,
         parameters,
-        selectedNode,
+        selectedNodeId,
         dispatch,
       }}
     >

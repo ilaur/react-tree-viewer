@@ -3,11 +3,9 @@ import { useEffect } from 'react';
 import { TreeView, TreeItem } from '@mui/lab';
 import { ExpandMore, ChevronRight } from '@mui/icons-material';
 
-// import { getParameter } from '../requests/getParameter';
+import { getParameter } from '../requests/getParameter';
 import { ParameterNode } from '../requests/types';
 import { useAppContext } from '../AppContext';
-
-const mock_data = require('../response_mock.json');
 
 export default function ParametersTree(): React.ReactElement {
   const { parameters, dispatch } = useAppContext();
@@ -15,51 +13,46 @@ export default function ParametersTree(): React.ReactElement {
   useEffect(() => {
     // TODO: Remove test calls
     // TODO2: Improve requests with react routes
-    // setTimeout(() => {
-    //   getParameter()
-    //     .then((res) => {
-    //       dispatch({
-    //         type: 'addParameters',
-    //         parameters: res,
-    //       });
-    //     })
-    //     .catch((err) => {
-    //       console.error(err);
-    //     });
-    // }, 4000);
-
-    dispatch({
-      type: 'addParameters',
-      parameters: mock_data,
-    });
+    setTimeout(() => {
+      getParameter()
+        .then((response) => {
+          dispatch({
+            type: 'addParameters',
+            parameters: response,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }, 1000);
   }, [dispatch]);
 
   const renderChildNode = (
     treeNode: ParameterNode | null,
-    index: string,
+    currentId: string,
   ): React.ReactNode | null => {
     if (!treeNode) {
       return treeNode;
     } else if (Array.isArray(treeNode) && treeNode.length > 0) {
       return (
         <TreeView
-          aria-label={`level-${index}-navigator`}
+          aria-label={`level-${currentId}-navigator`}
           defaultCollapseIcon={<ExpandMore />}
           defaultExpandIcon={<ChevronRight />}
           onNodeSelect={(ev: any, nodeId: string) => {
             dispatch({
-              type: 'selectedNode',
-              selectedNode: nodeId,
+              type: 'selectedNodeId',
+              selectedNodeId: nodeId,
             });
           }}
-          key={index}
+          key={currentId}
         >
-          {treeNode.map((value, idx) => {
-            const newIdx = index.toString() + idx.toString();
+          {treeNode.map((value, id) => {
+            const composedId = currentId + id;
 
             return (
-              <TreeItem key={newIdx} nodeId={newIdx} label={value?.name}>
-                {renderChildNode(value?.children, newIdx)}
+              <TreeItem key={composedId} nodeId={composedId} label={value?.name}>
+                {renderChildNode(value.children, composedId)}
               </TreeItem>
             );
           })}
@@ -67,7 +60,7 @@ export default function ParametersTree(): React.ReactElement {
       );
     }
 
-    return <TreeItem nodeId={index} label={treeNode?.name} />;
+    return <TreeItem nodeId={currentId} label={treeNode.name} />;
   };
 
   return (
@@ -77,8 +70,8 @@ export default function ParametersTree(): React.ReactElement {
       defaultExpandIcon={<ChevronRight />}
       onNodeSelect={(ev: any, nodeId: string) => {
         dispatch({
-          type: 'selectedNode',
-          selectedNode: nodeId,
+          type: 'selectedNodeId',
+          selectedNodeId: nodeId,
         });
       }}
     >
