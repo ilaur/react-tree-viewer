@@ -13,13 +13,28 @@ export default function App(): React.ReactElement {
   return (
     <div className="App">
       <AppContextProvider>
-        <AppBar title={'HMI Parameter Service'} />
-        <Grid container direction="row" spacing={24} alignContent="center">
+        <Grid container spacing={4} direction="column">
           <Grid item>
-            <ParametersTree />
+            <AppBar title={'HMI Parameter Service'} />
           </Grid>
           <Grid item>
-            <ParametersBranchEditor />
+            <Grid container direction="row" spacing={4}>
+              <Grid
+                style={{
+                  borderRight: '2px solid',
+                  borderBottom: '2px solid',
+                  display: 'inline-flex',
+                }}
+                item
+                xs={2}
+              >
+                <ParametersTree />
+              </Grid>
+
+              <Grid item xs={10}>
+                <ParametersBranchEditor />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </AppContextProvider>

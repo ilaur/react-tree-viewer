@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Stack, TextField, Box } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 
 import { ParameterNode } from '../requests/types';
 
@@ -38,32 +38,26 @@ export default function ParametersBranchEditor(): React.ReactElement {
     }
   }, [selectedNodeId, parameters]);
 
-  const renderFields = (fieldName: string, fieldValue: any): React.ReactElement => {
-    if (fieldValue === undefined) {
-      return <div />;
-    }
-
-    return (
-      <TextField
-        id="standard-basic"
-        label={fieldName}
-        value={fieldValue[fieldName] || null}
-        variant="standard"
-      />
-    );
-  };
-
-  const values = currentFields?.json || {};
+  if (currentFields === undefined) {
+    return <div />;
+  }
 
   return (
-    <Box sx={{ maxWidth: '300px' }}>
-      <Stack>
-        {renderFields('name', currentFields)}
-
-        {Object.keys(values).map((key) => {
-          return renderFields(key, values);
-        })}
-      </Stack>
-    </Box>
+    <div>
+      <div style={{ display: 'flex' }}>
+        <Typography>Name: </Typography>
+        <TextField value={currentFields?.name} fullWidth />
+      </div>
+      <div style={{ display: 'flex' }}>
+        <Typography>Value: </Typography>
+        <TextField
+          id="standard-basic"
+          value={JSON.stringify(currentFields?.json)}
+          multiline
+          minRows={15}
+          fullWidth
+        />
+      </div>
+    </div>
   );
 }
